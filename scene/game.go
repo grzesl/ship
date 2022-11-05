@@ -132,10 +132,10 @@ func (g *Game) Setup(w engine.World) {
 			Accel:     component.NewAccel(-0.0001, -0.0001, 40, 90),
 			Angle:     component.NewAngle(-90, 90),
 			Spin:      component.NewSpin(1, 2),
-			Scale:     component.NewScale(0.2, 0.2),
+			Scale:     component.NewScale(0.25, 0.25),
 			Growth:    component.NewGrowth(-0.007, -0.003),
 			Life:      component.NewLife(0, 10, 30, 40),
 			Gradient:  component.NewGradient(assets.WaterGradient...),
-			Sprite:    component.NewSprite(assets.FireA, assets.FireB),
+			Sprite:    component.NewSprite(assets.Water),
 		})
 }

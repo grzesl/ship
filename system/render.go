@@ -115,7 +115,7 @@ func (r *Render) Draw(w engine.World, screen *ebiten.Image) {
 
 		//	rufX, rufY := rotate_point(0.0, -assets.ShipW/2, rot.Radians)
 
-		op.GeoM.Translate((float64(screenB.Dx())+screenX)/2, (float64(screenB.Dy())+screenY)/2)
+		op.GeoM.Translate((float64(screenB.Dx())+screenX)/2-10, (float64(screenB.Dy())+screenY)/2-10)
 		screen.DrawImage(sprite.Image, op)
 	})
 }
