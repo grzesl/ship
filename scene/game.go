@@ -8,6 +8,7 @@ import (
 	"github.com/grzesl/ship/entity"
 	"github.com/grzesl/ship/helper/enum"
 	"github.com/grzesl/ship/helper/load"
+	"github.com/grzesl/ship/helper/tilemap"
 	"github.com/grzesl/ship/system"
 	"github.com/sedyh/mizu/pkg/engine"
 )
@@ -42,6 +43,31 @@ func (g *Game) Setup(w engine.World) {
 		Solid:  component.NewSolid(enum.CollisionGroupNone),
 		Sprite: component.NewSpriteFs("ocean", assets.Images["ocean_idle"]),
 	})
+
+	for y := 0; y < construct.Height; y++ {
+		for x := 0; x < construct.Width; x++ {
+			switch string(construct.Level[tilemap.Index(x, y, construct.Width)]) {
+			case "1":
+				w.AddEntities(&entity.Tile{
+					Pos:    component.NewPosI(x, y),
+					Vel:    component.NewVelF(0, 0),
+					Size:   component.NewSizeI(1, 1),
+					Solid:  component.NewSolid(enum.CollisionGroupTile),
+					Sprite: component.NewSpriteFs("rocks", assets.Images["rocks_idle"]),
+				})
+				/*default:
+				w.AddEntities(&entity.Tile{
+					Pos:    component.NewPosI(x, y),
+					Vel:    component.NewVel(0, 0),
+					Size:   component.NewSizeI(1, 1),
+					Solid:  component.NewSolid(enum.CollisionGroupNone),
+					Sprite: component.NewSprite("wall", assets.Images["wall_0"]),
+				})*/
+			}
+
+		}
+	}
+
 	/*
 		for y := 0; y < construct.Height; y++ {
 			for x := 0; x < construct.Width; x++ {

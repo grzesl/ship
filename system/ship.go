@@ -76,7 +76,7 @@ func (p *Ship) Update(w engine.World) {
 		}
 	} else {
 
-		control.VolumeSpeed += 0.00001 //slow down
+		control.VolumeSpeed += 0.00005 //slow down
 		if control.VolumeSpeed > 0 {
 			control.VolumeSpeed = 0
 		}

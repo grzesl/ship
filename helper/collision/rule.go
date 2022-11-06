@@ -22,25 +22,32 @@ func Slide(a, b enum.CollisionGroup) Rule {
 	return Rule{a, b, func(e Event, c Contact) {
 		e.VelA.L += c.NormalX * math.Abs(e.VelA.L) * (1 - c.Time)
 		e.VelA.M += c.NormalY * math.Abs(e.VelA.M) * (1 - c.Time)
+		if e.ControlA != nil {
+			e.ControlA.VolumeSpeed = 0.05
+		}
+		if e.ControlB != nil {
+			e.ControlB.VolumeSpeed = 0.05
+		}
 	}}
 }
 
 // Event is all the additional data needed to resolve a particular collision.
 type Event struct {
-	PosA, PosB     *component.Pos
-	VelA, VelB     *component.Vel
-	SizeA, SizeB   *component.Size
-	SolidA, SolidB *component.Solid
-	Reaction       Reaction
-	Time           float64
+	PosA, PosB         *component.Pos
+	VelA, VelB         *component.Vel
+	SizeA, SizeB       *component.Size
+	SolidA, SolidB     *component.Solid
+	ControlA, ControlB *component.Control
+	Reaction           Reaction
+	Time               float64
 }
 
 func NewEvent(
-	aPos *component.Pos, aVel *component.Vel, aSize *component.Size, aSolid *component.Solid,
-	bPos *component.Pos, bVel *component.Vel, bSize *component.Size, bSolid *component.Solid,
+	aPos *component.Pos, aVel *component.Vel, aSize *component.Size, aSolid *component.Solid, aControl *component.Control,
+	bPos *component.Pos, bVel *component.Vel, bSize *component.Size, bSolid *component.Solid, bControl *component.Control,
 	reaction Reaction, time float64,
 ) Event {
-	return Event{aPos, bPos, aVel, bVel, aSize, bSize, aSolid, bSolid, reaction, time}
+	return Event{aPos, bPos, aVel, bVel, aSize, bSize, aSolid, bSolid, aControl, bControl, reaction, time}
 }
 
 func (e Event) String() string {

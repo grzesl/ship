@@ -25,50 +25,52 @@ const (
 	OceanW = 1920
 	OceanH = 1080
 
+	RocksW = 104
+	RocksH = 91
+
 	Cratesize = 64
 
 	Animation = 100 * time.Millisecond
 
 	Level = `
 		oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
-		o                  oo                  oo                  o
-		o                  oo                  oo                  o
-		o                  oo                  oo                  o
-		o                  oo                  oo                  o
-		o                  oo                  oo                  o
-		o                  oo                  oo                  o
-		o                  oo                  oo                  o
-		o                  oo                  oo                  o
-		o                  oo                  oo                  o
-		o                  oo                  oo                  o
-		o                  oo                  oo                  o
-		o                  oo                  oo                  o
-		o                  oo                  oo                  o
-		o                  oo                  oo                  o
-		o                  oo                  oo                  o
-		o                  oo                  oo                  o
-		o                  oo                  oo                  o
-		o                  oo                  oo                  o
-		o                  oo                  oo                  o
-		o                  oo                  oo                  o
-		o                  oo                  oo                  o
-		o                  oo                  oo                  o
-		o                  oo                  oo                  o
-		o                  oo                  oo                  o
-		o                  oo                  oo                  o
-		o                  oo                  oo                  o
-		o                  oo                  oo                  o
-		o                  oo                  oo                  o
-		o                  oo                  oo                  o
-		o                  oo                  oo                  o
-		o                  oo                  oo                  o
-		o                  oo                  oo                  o
+		o                                                          o
+		1                                                          o
+		o        1                                                 o
+		1                                                          o
+		o                                                          o
+		1                                                          o
+		o                                                          o
+		1                                                          o
+		o                                                          o
+		1                                                          o
+		o                                                          o
+		1                                                          o
+		o                                                          o
+		1                                                          o
+		o                                                          o
+		1                                                          o
+		o                                                          o
+		1                                                          o
+		o                                                          o
+		1                                                          o
+		o                                                          o
+		1                                                          o
+		o                                                          o
+		1                                                          o
+		o                                                          o
+		1                                                          o
+		o                                                          o
+		1                                                          o
+		o                                                          o
+		1                                                          o
+		o                                                          o
 		oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 	`
 )
 
 var (
-	Background   = color.RGBA{R: 10, G: 10, B: 150, A: 255}
+	Background   = color.RGBA{R: 98, G: 164, B: 197, A: 255}
 	Images       = make(map[string]*graphics.Frameset)
 	FireA        = helper.Image(fs, "data/image/fire-a.png")
 	FireB        = helper.Image(fs, "data/image/fire-b.png")
@@ -322,4 +324,7 @@ func Init() {
 
 	ocean := load.Image(fs, "data/image/ocean.png")
 	Images["ocean_idle"] = split.Single(ocean, 0, 0, OceanW, OceanH, false)
+
+	rocks := load.Image(fs, "data/image/rocks.png")
+	Images["rocks_idle"] = split.Single(rocks, 0, 0, RocksW, RocksH, false)
 }

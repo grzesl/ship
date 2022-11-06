@@ -36,7 +36,8 @@ func (t *Rendering) Draw(w engine.World, screen *ebiten.Image) {
 		var solid *component.Solid
 		var pos *component.Pos
 		var sprite *component.Sprite
-		e.Get(&solid, &pos, &sprite)
+		var siz *component.Size
+		e.Get(&solid, &pos, &sprite, &siz)
 
 		//if solid.Empty() {
 		//	return
@@ -49,7 +50,15 @@ func (t *Rendering) Draw(w engine.World, screen *ebiten.Image) {
 		//log.Println("Entityid:" + strconv.Itoa(e.ID()))
 
 		op := &ebiten.DrawImageOptions{}
-		op.GeoM.Translate(pos.X*float64(assets.Tilesize), pos.Y*float64(assets.Tilesize))
+
+		if solid.Empty() {
+			op.GeoM.Translate(pos.X*float64(assets.Tilesize),
+				pos.Y*float64(assets.Tilesize))
+		} else {
+			op.GeoM.Translate(pos.X*float64(assets.Tilesize)-(float64(sprite.Frameset.Image().Bounds().Size().X)),
+				pos.Y*float64(assets.Tilesize)-(float64(sprite.Frameset.Image().Bounds().Size().Y)))
+		}
+
 		t.offscreen.DrawImage(sprite.Frameset.Image(), op)
 		//log.Println("sprite name:" + sprite.Name)
 	})
