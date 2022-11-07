@@ -23,10 +23,10 @@ func Slide(a, b enum.CollisionGroup) Rule {
 		e.VelA.L += c.NormalX * math.Abs(e.VelA.L) * (1 - c.Time)
 		e.VelA.M += c.NormalY * math.Abs(e.VelA.M) * (1 - c.Time)
 		if e.ControlA != nil {
-			e.ControlA.VolumeSpeed = 0.05
+			e.ControlA.VolumeSpeed = -e.ControlA.VolumeSpeed
 		}
 		if e.ControlB != nil {
-			e.ControlB.VolumeSpeed = 0.05
+			e.ControlB.VolumeSpeed = -e.ControlA.VolumeSpeed
 		}
 	}}
 }

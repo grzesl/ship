@@ -1,6 +1,7 @@
 package scene
 
 import (
+	"math/rand"
 	"time"
 
 	"github.com/grzesl/ship/assets"
@@ -13,9 +14,13 @@ import (
 	"github.com/sedyh/mizu/pkg/engine"
 )
 
-type Game struct{}
+type Game struct {
+}
 
 func (g *Game) Setup(w engine.World) {
+	rand.Seed(time.Now().UTC().UnixNano())
+	assets.Init()
+
 	w.AddComponents(
 		component.Root{}, component.Birthrate{}, component.Pivot{},
 		component.Pos{}, component.Vel{}, component.Size{}, component.Rot{}, component.Zoom{},

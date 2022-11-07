@@ -104,17 +104,11 @@ func (r *Render) Draw(w engine.World, screen *ebiten.Image) {
 		op.GeoM.Translate(-iw/2, -ih/2)
 		op.GeoM.Rotate(theta)
 
-		//log.Println(screenX, screenY)
-
 		screenB := w.Bounds()
-		//op.GeoM.Translate(screenX, screenY)
-		//op.GeoM.Translate(newScreenX, newScreenY)
+
 		op.ColorM.Scale(red, green, blue, alpha)
 
 		screenX, screenY = rotate_point(screenX, screenY, rot.Radians)
-
-		//	rufX, rufY := rotate_point(0.0, -assets.ShipW/2, rot.Radians)
-
 		op.GeoM.Translate((float64(screenB.Dx())+screenX)/2-10, (float64(screenB.Dy())+screenY)/2-10)
 		screen.DrawImage(sprite.Image, op)
 	})

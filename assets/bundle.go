@@ -70,12 +70,13 @@ const (
 )
 
 var (
-	Background   = color.RGBA{R: 98, G: 164, B: 197, A: 255}
-	Images       = make(map[string]*graphics.Frameset)
-	FireA        = helper.Image(fs, "data/image/fire-a.png")
-	FireB        = helper.Image(fs, "data/image/fire-b.png")
-	Water        = helper.Image(fs, "data/image/water.png")
-	FireGradient = []color.Color{
+	Background = color.RGBA{R: 98, G: 164, B: 197, A: 255}
+	Images     = make(map[string]*graphics.Frameset)
+	//FireA        = helper.Image(fs, "data/image/fire-a.png")
+	//FireB        = helper.Image(fs, "data/image/fire-b.png")
+	Ebitengine = helper.Image(fs, "data/image/ebitengine.png")
+	Water      = helper.Image(fs, "data/image/water.png")
+	/*FireGradient = []color.Color{
 		color.RGBA{R: 23, G: 13, B: 4, A: 255},
 		color.RGBA{R: 36, G: 18, B: 6, A: 255},
 		color.RGBA{R: 49, G: 24, B: 8, A: 255},
@@ -176,7 +177,7 @@ var (
 		color.RGBA{R: 23, G: 13, B: 4, A: 255},
 		color.RGBA{R: 23, G: 13, B: 4, A: 255},
 		color.RGBA{R: 23, G: 13, B: 4, A: 255},
-	}
+	}*/
 	WaterGradient = []color.Color{
 		color.RGBA{R: 28, G: 146, B: 210, A: 255},
 		color.RGBA{R: 30, G: 147, B: 210, A: 255},

@@ -1,6 +1,8 @@
 package system
 
 import (
+	"math"
+
 	"github.com/grzesl/ship/assets"
 	"github.com/grzesl/ship/component"
 	"github.com/grzesl/ship/helper/enum"
@@ -30,6 +32,23 @@ func (t *Rendering) Draw(w engine.World, screen *ebiten.Image) {
 	var zoom *component.Zoom
 	cameraEntity.Get(&camera, &zoom)
 
+	if math.Abs(zoom.Value-zoom.DesiredZoomValue) < 0.001 {
+		zoom.Value = zoom.DesiredZoomValue
+	} else if zoom.Value > zoom.DesiredZoomValue {
+		zoom.Value -= 0.001
+	} else if zoom.Value < zoom.DesiredZoomValue {
+		zoom.Value += 0.001
+	}
+
+	playerEntity, found := w.View(component.Pos{}, component.Rot{}, component.Control{}).Get()
+	if !found {
+		return
+	}
+	var pos *component.Pos
+	var rot *component.Rot
+	var control *component.Control
+	playerEntity.Get(&pos, &rot, &control)
+
 	// Draw tiles to the offscreen
 	view := w.View(component.Solid{}, component.Pos{}, component.Sprite{})
 	view.Each(func(e engine.Entity) {
@@ -42,6 +61,10 @@ func (t *Rendering) Draw(w engine.World, screen *ebiten.Image) {
 		//if solid.Empty() {
 		//	return
 		//}
+
+		if e == playerEntity {
+			zoom.DesiredZoomValue = 1 + (control.VolumeSpeed * 20)
+		}
 
 		if solid.Group == enum.CollisionGroupPlayer {
 			return
