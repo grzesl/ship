@@ -58,14 +58,16 @@ func (c *Collision) Update(w engine.World) {
 			var aSize *component.Size
 			var aSolid *component.Solid
 			var aControl *component.Control
-			a.Get(&aPos, &aVel, &aSize, &aSolid, &aControl)
+			var aGoods *component.Goods
+			a.Get(&aPos, &aVel, &aSize, &aSolid, &aControl, &aGoods)
 
 			var bPos *component.Pos
 			var bVel *component.Vel
 			var bSize *component.Size
 			var bSolid *component.Solid
 			var bControl *component.Control
-			b.Get(&bPos, &bVel, &bSize, &bSolid, &aControl)
+			var bGoods *component.Goods
+			b.Get(&bPos, &bVel, &bSize, &bSolid, &bControl, &bGoods)
 
 			// Check if the given collision is allowed in the list of rules.
 			// If the opposite rule is found - swap objects.
@@ -92,8 +94,8 @@ func (c *Collision) Update(w engine.World) {
 
 			// Add collision event.
 			c.events = append(c.events, collision.NewEvent(
-				aPos, aVel, aSize, aSolid, aControl,
-				bPos, bVel, bSize, bSolid, bControl,
+				aPos, aVel, aSize, aSolid, aControl, aGoods,
+				bPos, bVel, bSize, bSolid, bControl, bGoods,
 				rule.Reaction, contact.Time,
 			))
 		}

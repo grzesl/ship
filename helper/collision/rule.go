@@ -3,6 +3,7 @@ package collision
 import (
 	"fmt"
 	"math"
+	"time"
 
 	"github.com/grzesl/ship/component"
 	"github.com/grzesl/ship/helper/enum"
@@ -22,12 +23,59 @@ func Slide(a, b enum.CollisionGroup) Rule {
 	return Rule{a, b, func(e Event, c Contact) {
 		e.VelA.L += c.NormalX * math.Abs(e.VelA.L) * (1 - c.Time)
 		e.VelA.M += c.NormalY * math.Abs(e.VelA.M) * (1 - c.Time)
+
 		if e.ControlA != nil {
 			e.ControlA.VolumeSpeed = -e.ControlA.VolumeSpeed
+
+			if e.GoodsA != nil {
+				if time.Since(e.GoodsA.Visited) < time.Second*30 {
+					e.GoodsA.Visited = time.Now()
+					return
+				}
+				e.GoodsA.Visited = time.Now()
+			}
+			if e.GoodsB != nil {
+				if time.Since(e.GoodsB.Visited) < time.Second*30 {
+					e.GoodsB.Visited = time.Now()
+					return
+				}
+				e.GoodsB.Visited = time.Now()
+			}
+
+			if e.ControlA.Carry {
+				e.ControlA.Carry = false
+			} else {
+				e.ControlA.Carry = true
+			}
+			e.ControlA.VolumeSpeed = 0
 		}
 		if e.ControlB != nil {
-			e.ControlB.VolumeSpeed = -e.ControlA.VolumeSpeed
+			e.ControlB.VolumeSpeed = -e.ControlB.VolumeSpeed
+
+			if e.GoodsA != nil {
+				if time.Since(e.GoodsA.Visited) < time.Second*30 {
+					e.GoodsA.Visited = time.Now()
+					return
+				}
+				e.GoodsA.Visited = time.Now()
+			}
+			if e.GoodsB != nil {
+				if time.Since(e.GoodsB.Visited) < time.Second*30 {
+					e.GoodsB.Visited = time.Now()
+					return
+				}
+				e.GoodsB.Visited = time.Now()
+			}
+
+			if e.ControlB.Carry {
+				e.ControlB.Carry = false
+			} else {
+				e.ControlB.Carry = true
+			}
+
+			e.ControlB.VolumeSpeed = 0
 		}
+
 	}}
 }
 
@@ -38,16 +86,17 @@ type Event struct {
 	SizeA, SizeB       *component.Size
 	SolidA, SolidB     *component.Solid
 	ControlA, ControlB *component.Control
+	GoodsA, GoodsB     *component.Goods
 	Reaction           Reaction
 	Time               float64
 }
 
 func NewEvent(
-	aPos *component.Pos, aVel *component.Vel, aSize *component.Size, aSolid *component.Solid, aControl *component.Control,
-	bPos *component.Pos, bVel *component.Vel, bSize *component.Size, bSolid *component.Solid, bControl *component.Control,
+	aPos *component.Pos, aVel *component.Vel, aSize *component.Size, aSolid *component.Solid, aControl *component.Control, aGoods *component.Goods,
+	bPos *component.Pos, bVel *component.Vel, bSize *component.Size, bSolid *component.Solid, bControl *component.Control, bGoods *component.Goods,
 	reaction Reaction, time float64,
 ) Event {
-	return Event{aPos, bPos, aVel, bVel, aSize, bSize, aSolid, bSolid, aControl, bControl, reaction, time}
+	return Event{aPos, bPos, aVel, bVel, aSize, bSize, aSolid, bSolid, aControl, bControl, aGoods, bGoods, reaction, time}
 }
 
 func (e Event) String() string {

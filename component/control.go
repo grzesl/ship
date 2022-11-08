@@ -6,6 +6,7 @@ type Control struct {
 	FallSpeed   float64 // Falling speed before reaching the apex.
 	MoveSpeed   float64 // Travel speed.
 	VolumeSpeed float64 // Momentum Speed
+	Carry       bool    //carry load
 }
 
 func NewControl(jumpSpeed, lowSpeed, fallSpeed, moveSpeed float64) Control {
@@ -14,5 +15,6 @@ func NewControl(jumpSpeed, lowSpeed, fallSpeed, moveSpeed float64) Control {
 		LowSpeed:  lowSpeed,
 		FallSpeed: fallSpeed,
 		MoveSpeed: moveSpeed,
+		Carry:     false,
 	}
 }

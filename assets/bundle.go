@@ -36,7 +36,7 @@ const (
 		oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 		o                                                          o
 		1                                                          o
-		o        1                                                 o
+		o        1                                       2         o
 		1                                                          o
 		o                                                          o
 		1                                                          o
@@ -56,7 +56,7 @@ const (
 		1                                                          o
 		o                                                          o
 		1                                                          o
-		o                                                          o
+		o              2                               2           o
 		1                                                          o
 		o                                                          o
 		1                                                          o
@@ -323,9 +323,15 @@ func Init() {
 	ship := load.Image(fs, "data/image/ship.png")
 	Images["ship_idle"] = split.MultiRows(ship, 0, 0, ShipW, ShipH, 9, 40, false, Animation)
 
+	carry := load.Image(fs, "data/image/ship_carry.png")
+	Images["ship_carry"] = split.MultiRows(carry, 0, 0, ShipW, ShipH, 9, 40, false, Animation)
+
 	ocean := load.Image(fs, "data/image/ocean.png")
 	Images["ocean_idle"] = split.Single(ocean, 0, 0, OceanW, OceanH, false)
 
 	rocks := load.Image(fs, "data/image/rocks.png")
 	Images["rocks_idle"] = split.Single(rocks, 0, 0, RocksW, RocksH, false)
+
+	island := load.Image(fs, "data/image/island.png")
+	Images["island_idle"] = split.Single(island, 0, 0, RocksW, RocksH, false)
 }

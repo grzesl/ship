@@ -26,7 +26,7 @@ func (g *Game) Setup(w engine.World) {
 		component.Pos{}, component.Vel{}, component.Size{}, component.Rot{}, component.Zoom{},
 		component.Solid{}, component.Construct{}, component.Sprite{}, component.Gravity{}, component.Control{},
 		component.Accel{}, component.Spin{}, component.Scale{}, component.Angle{}, component.Growth{},
-		component.Life{}, component.Gradient{},
+		component.Life{}, component.Gradient{}, component.Goods{},
 	)
 
 	// Fills the entire space with tiles, some of them are marked as empty.
@@ -60,16 +60,16 @@ func (g *Game) Setup(w engine.World) {
 					Solid:  component.NewSolid(enum.CollisionGroupTile),
 					Sprite: component.NewSpriteFs("rocks", assets.Images["rocks_idle"]),
 				})
-				/*default:
-				w.AddEntities(&entity.Tile{
+			case "2":
+				w.AddEntities(&entity.Island{
 					Pos:    component.NewPosI(x, y),
-					Vel:    component.NewVel(0, 0),
+					Vel:    component.NewVelF(0, 0),
 					Size:   component.NewSizeI(1, 1),
-					Solid:  component.NewSolid(enum.CollisionGroupNone),
-					Sprite: component.NewSprite("wall", assets.Images["wall_0"]),
-				})*/
+					Solid:  component.NewSolid(enum.CollisionGroupTile),
+					Sprite: component.NewSpriteFs("island", assets.Images["island_idle"]),
+					Goods:  component.NewGoods(),
+				})
 			}
-
 		}
 	}
 

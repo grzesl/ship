@@ -98,7 +98,11 @@ func (p *Ship) Update(w engine.World) {
 	//		sprite.Frameset = assets.Images["player_idle"]
 	//	}
 
-	sprite.Frameset = assets.Images["ship_idle"]
+	if control.Carry {
+		sprite.Frameset = assets.Images["ship_carry"]
+	} else {
+		sprite.Frameset = assets.Images["ship_idle"]
+	}
 }
 
 func (p *Ship) Draw(w engine.World, screen *ebiten.Image) {
